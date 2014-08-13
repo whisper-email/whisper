@@ -15,7 +15,7 @@
       <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/grids-responsive-min.css">
     <!--<![endif]-->
 
-    <link rel="stylesheet" href="/static/css/site.css">
+    <link rel="stylesheet" href="/static/css/disposable.css">
     
   </head>
   <body>
@@ -40,8 +40,9 @@
               </header>
               <div class="post-description">
                 <pre>{{content}}</pre>
-                <div class='alert error'>Warning: This message has been deleted. Once you close this window this whisper will be lost forever.</div>
+                <h3>Password: {{password}}</h3>
               </div>
+              <div class='alert error'>Warning: This message has been deleted. Once you close this window this whisper will be lost forever.</div>
             </div>
           </div>
         </div>

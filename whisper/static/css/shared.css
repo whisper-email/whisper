@@ -1,0 +1,39 @@
+/* ------------------------------------
+ * Table of Contents
+ * -------------------------------------
+ *   :: 1.a Alerts 
+ *   :: 1.b Utility Classes */
+/*///////////////////////////////////
+ * :: Alerts */
+.alert, .error, .success {
+  color: #222222;
+  font-size: 12pt;
+  background: #fafafa;
+  border: 1px solid #eeeeee;
+  border-radius: 3px;
+  padding: 8px 10px 5px 10px;
+  margin: 10px 0px 10px 0px;
+  height: 35px;
+  width: 100%; }
+
+.error {
+  color: #fff4f2;
+  font-variant: small-caps;
+  background: #f24927;
+  border: 2px solid #e8330c; }
+
+.success {
+  color: #e4ffeb;
+  background: #31bf57;
+  border: 1px solid #21a745;
+  /*#217F3A */ }
+
+/*///////////////////////////////////
+ * :: Utility Classes */
+.absolute_center {
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0; }

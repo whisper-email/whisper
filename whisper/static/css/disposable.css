@@ -1,0 +1,275 @@
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+
+a {
+  text-decoration: none;
+  color: #3d92c9; }
+  a:hover, a:focus {
+    text-decoration: underline; }
+
+h3 {
+  font-weight: 100; }
+
+html, body {
+  overflow-x: hidden; }
+
+/* ------------------------------------
+ * Table of Contents
+ * -------------------------------------
+ *   :: 1.a Bullshit I need to get rid of
+ *   :: 1.b Footer */
+/*///////////////////////////////////
+ * :: 1.a Bullshit I need to get rid of */
+.pure-img-responsive {
+  max-width: 100%;
+  height: auto; }
+
+#layout {
+  padding: 0; }
+
+.header {
+  text-align: center;
+  top: auto;
+  margin: 3em auto; }
+
+.sidebar {
+  background: #3d4f5d;
+  color: white; }
+
+.brand-title, .brand-tagline {
+  margin: 0; }
+
+.brand-title {
+  font-style: italic; }
+
+.brand-tagline {
+  font-weight: 300;
+  color: #b0cadb; }
+
+.nav-list {
+  margin: 0;
+  padding: 0;
+  list-style: none; }
+
+.nav-item {
+  display: inline-block;
+  *display: inline;
+  zoom: 1; }
+  .nav-item a {
+    background: transparent;
+    border: 2px solid #b0cadb;
+    color: white;
+    margin-top: 1em;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-size: 85%; }
+    .nav-item a:hover, .nav-item a:focus {
+      border: 2px solid #3d92c9;
+      text-decoration: none; }
+
+.content-subhead {
+  text-transform: uppercase;
+  color: #aaaaaa;
+  border-bottom: 1px solid #eeeeee;
+  padding: 0.4em 0;
+  font-size: 80%;
+  font-weight: 500;
+  letter-spacing: 0.1em; }
+
+.content {
+  padding: 2em 1em 0; }
+
+.post {
+  padding-bottom: 2em; }
+
+.post-title {
+  font-size: 2em;
+  color: #222222;
+  margin-bottom: 0.2em; }
+
+.post-avatar {
+  border-radius: 50px;
+  float: right;
+  margin-left: 1em; }
+
+.post-description {
+  font-family: Georgia, "Cambria", serif;
+  color: #444444;
+  line-height: 1.8em; }
+
+.post-meta {
+  color: #999999;
+  font-size: 90%;
+  margin: 0; }
+
+.post-category {
+  margin: 0 0.1em;
+  padding: 0.3em 1em;
+  color: white;
+  background: #999999;
+  font-size: 80%; }
+
+.post-category-design {
+  background: #5aba59; }
+
+.post-category-pure {
+  background: #4d85d1; }
+
+.post-category-yui {
+  background: #8156a7; }
+
+.post-category-js {
+  background: #df2d4f; }
+
+.post-images {
+  margin: 1em 0; }
+
+.post-image-meta {
+  margin-top: -3.5em;
+  margin-left: 1em;
+  color: white;
+  text-shadow: 0 1px 1px #333333; }
+
+/*///////////////////////////////////
+ * :: 1.b Footer */
+.footer {
+  text-align: center;
+  padding: 1em 0; }
+  .footer a {
+    color: #cccccc;
+    font-size: 80%; }
+  .footer .pure-menu a:hover, .footer .pure-menu a:focus {
+    background: none; }
+
+@media (min-width: 48em) {
+  .content {
+    padding: 2em 3em 0;
+    margin-left: 25%; }
+
+  .header {
+    margin: 80% 2em 0;
+    text-align: right; }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0; } }
+/* ------------------------------------
+ * Table of Contents
+ * -------------------------------------
+ *   :: 1.a Alerts 
+ *   :: 1.b Utility Classes */
+/*///////////////////////////////////
+ * :: Alerts */
+.alert, .error, .success {
+  color: #222222;
+  font-size: 12pt;
+  background: #fafafa;
+  border: 1px solid #eeeeee;
+  border-radius: 3px;
+  padding: 8px 10px 5px 10px;
+  margin: 10px 0px 10px 0px;
+  height: 35px;
+  width: 100%; }
+
+.error {
+  color: #fff4f2;
+  font-variant: small-caps;
+  background: #f24927;
+  border: 2px solid #e8330c; }
+
+.success {
+  color: #e4ffeb;
+  background: #31bf57;
+  border: 1px solid #21a745;
+  /*#217F3A */ }
+
+/*///////////////////////////////////
+ * :: Utility Classes */
+.absolute_center {
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0; }
+
+body.auth_page {
+  background: #6088d7;
+  -webkit-transition: background 0.2s ease;
+  -moz-transition: background 0.2s ease;
+  transition: background 0.2s ease; }
+  body.auth_page.failure {
+    background: #d76060; }
+  body.auth_page.success_ {
+    background: #31bf57;
+    border: none; }
+
+#auth_container {
+  height: 200px;
+  width: 500px; }
+  #auth_container .divider {
+    display: inline-block;
+    color: white;
+    font-size: 32pt;
+    font-weight: 500;
+    text-align: center;
+    margin-right: 5px;
+    width: 30px; }
+  #auth_container form {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 185px; }
+  #auth_container input {
+    border: none;
+    color: #353535;
+    font-size: 24pt;
+    border-radius: 3px;
+    padding: 0 10px 0 10px;
+    width: 75px; }
+    #auth_container input:focus {
+      outline: none; }
+
+#faq {
+  margin-top: 300px; }
+
+#success_icon {
+  background: url("/static/img/check.png");
+  background-size: cover;
+  display: none;
+  margin: 0 auto 0 auto;
+  height: 50px;
+  width: 50px;
+  -webkit-transition: height 1s ease;
+  -moz-transition: height 1s ease;
+  transition: height 1s ease; }
+
+#text_logo {
+  color: white;
+  font-family: sans-serif;
+  font-size: 48pt;
+  font-style: italic;
+  font-weight: bold;
+  text-align: center; }
+
+.disposed_header {
+  color: #222222;
+  font-size: 36pt;
+  text-align: center;
+  position: relative;
+  top: 125px; }
+
+.faq_header {
+  font-weight: 24pt; }
+
+.faq_content h3 {
+  font-size: 18pt;
+  font-weight: 600;
+  font-style: italic;
+  margin-left: 15px; }
+.faq_content p {
+  font-size: 16pt;
+  margin-left: 30px; }

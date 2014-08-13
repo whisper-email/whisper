@@ -15,7 +15,7 @@
       <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/grids-responsive-min.css">
     <!--<![endif]-->
 
-    <link rel="stylesheet" href="static/css/site.css">
+    <link rel="stylesheet" href="static/css/index.css">
     <link rel="stylesheet" href="static/css/animate.css">
     
   </head>
@@ -73,12 +73,17 @@
                   <option value=""> Paranoia Level </option>
                   <option value="1">Plain Text</option>
                   <option value="2">Disposable message</option>
+                  <option value="3">SMS authentication</option>
                 </select>
                 
                 <button type="submit" class="pure-button pure-button-primary">send my whisper</button>
+                <div id="sms_container">
+                  Send a secret verification code to:
+                  <input id="sms_number" name="number" placeholder="1 888 555 1234">
+                </div>
               </form>
             </div>
-            <div id="success_modal">
+            <div id="success_modal" class="absolute_center">
               <div id="success_modal_head">&nbsp;</div>
               <div id="success_modal_body">
                 <div class="title">Success!</div>
@@ -102,6 +107,6 @@
       </div>
     </div>
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script src="static/js/site.js"></script>
+    <script src="static/js/index.js"></script>
   </body>
 </html>

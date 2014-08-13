@@ -18,6 +18,15 @@ $(document).ready(function() {
     });
   }
 
+  $("#paranoia").change(function(){
+    if($(this).val() == 3) {
+      $("#sms_container").fadeIn();
+    }
+    else {
+      $("#sms_container").fadeOut();
+    }
+  });
+
   $("#whisper").submit(function(e) {
     e.preventDefault();
 

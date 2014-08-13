@@ -1,0 +1,312 @@
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+
+a {
+  text-decoration: none;
+  color: #3d92c9; }
+  a:hover, a:focus {
+    text-decoration: underline; }
+
+h3 {
+  font-weight: 100; }
+
+html, body {
+  overflow-x: hidden; }
+
+/* ------------------------------------
+ * Table of Contents
+ * -------------------------------------
+ *   :: 1.a Bullshit I need to get rid of
+ *   :: 1.b Footer */
+/*///////////////////////////////////
+ * :: 1.a Bullshit I need to get rid of */
+.pure-img-responsive {
+  max-width: 100%;
+  height: auto; }
+
+#layout {
+  padding: 0; }
+
+.header {
+  text-align: center;
+  top: auto;
+  margin: 3em auto; }
+
+.sidebar {
+  background: #3d4f5d;
+  color: white; }
+
+.brand-title, .brand-tagline {
+  margin: 0; }
+
+.brand-title {
+  font-style: italic; }
+
+.brand-tagline {
+  font-weight: 300;
+  color: #b0cadb; }
+
+.nav-list {
+  margin: 0;
+  padding: 0;
+  list-style: none; }
+
+.nav-item {
+  display: inline-block;
+  *display: inline;
+  zoom: 1; }
+  .nav-item a {
+    background: transparent;
+    border: 2px solid #b0cadb;
+    color: white;
+    margin-top: 1em;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-size: 85%; }
+    .nav-item a:hover, .nav-item a:focus {
+      border: 2px solid #3d92c9;
+      text-decoration: none; }
+
+.content-subhead {
+  text-transform: uppercase;
+  color: #aaaaaa;
+  border-bottom: 1px solid #eeeeee;
+  padding: 0.4em 0;
+  font-size: 80%;
+  font-weight: 500;
+  letter-spacing: 0.1em; }
+
+.content {
+  padding: 2em 1em 0; }
+
+.post {
+  padding-bottom: 2em; }
+
+.post-title {
+  font-size: 2em;
+  color: #222222;
+  margin-bottom: 0.2em; }
+
+.post-avatar {
+  border-radius: 50px;
+  float: right;
+  margin-left: 1em; }
+
+.post-description {
+  font-family: Georgia, "Cambria", serif;
+  color: #444444;
+  line-height: 1.8em; }
+
+.post-meta {
+  color: #999999;
+  font-size: 90%;
+  margin: 0; }
+
+.post-category {
+  margin: 0 0.1em;
+  padding: 0.3em 1em;
+  color: white;
+  background: #999999;
+  font-size: 80%; }
+
+.post-category-design {
+  background: #5aba59; }
+
+.post-category-pure {
+  background: #4d85d1; }
+
+.post-category-yui {
+  background: #8156a7; }
+
+.post-category-js {
+  background: #df2d4f; }
+
+.post-images {
+  margin: 1em 0; }
+
+.post-image-meta {
+  margin-top: -3.5em;
+  margin-left: 1em;
+  color: white;
+  text-shadow: 0 1px 1px #333333; }
+
+/*///////////////////////////////////
+ * :: 1.b Footer */
+.footer {
+  text-align: center;
+  padding: 1em 0; }
+  .footer a {
+    color: #cccccc;
+    font-size: 80%; }
+  .footer .pure-menu a:hover, .footer .pure-menu a:focus {
+    background: none; }
+
+@media (min-width: 48em) {
+  .content {
+    padding: 2em 3em 0;
+    margin-left: 25%; }
+
+  .header {
+    margin: 80% 2em 0;
+    text-align: right; }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0; } }
+/* ------------------------------------
+ * Table of Contents
+ * -------------------------------------
+ *   :: 1.a Alerts 
+ *   :: 1.b Utility Classes */
+/*///////////////////////////////////
+ * :: Alerts */
+.alert, .error, .success {
+  color: #222222;
+  font-size: 12pt;
+  background: #fafafa;
+  border: 1px solid #eeeeee;
+  border-radius: 3px;
+  padding: 8px 10px 5px 10px;
+  margin: 10px 0px 10px 0px;
+  height: 35px;
+  width: 100%; }
+
+.error {
+  color: #fff4f2;
+  font-variant: small-caps;
+  background: #f24927;
+  border: 2px solid #e8330c; }
+
+.success {
+  color: #e4ffeb;
+  background: #31bf57;
+  border: 1px solid #21a745;
+  /*#217F3A */ }
+
+/*///////////////////////////////////
+ * :: Utility Classes */
+.absolute_center {
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0; }
+
+/* ------------------------------------
+ * Table of Contents
+ * -------------------------------------
+ *   :: 1.a Whisper Form */
+/*//////////////////////////////////
+ * :: 1.a Whisper Form */
+#background_cover {
+  background: rgba(0, 0, 0, 0.6);
+  display: none;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 1; }
+
+#email_content {
+  background: #fefefe;
+  border: none;
+  border-bottom: 1px solid #eeeeee;
+  line-height: 1.5em;
+  font-size: 30pt;
+  margin-bottom: 25px;
+  padding: 15px;
+  width: 100%;
+  -webkit-transition: background 1s, border-bottom 0.4s ease-in;
+  -moz-transition: background 1s, border-bottom 0.4s ease-in;
+  transition: background 1s, border-bottom 0.4s ease-in; }
+  #email_content:focus {
+    background: #fafafa;
+    border-bottom: 1px solid #dddddd;
+    outline: none; }
+
+#paranoia {
+  font-size: 20pt;
+  position: relative;
+  top: 2px; }
+
+#sms_container {
+  display: none;
+  margin-top: 25px; }
+
+#success_modal {
+  display: none;
+  background: #fafafa;
+  color: #222222;
+  text-align: center;
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.4);
+  height: 200px;
+  width: 400px;
+  z-index: 2; }
+
+#success_modal_head {
+  color: white;
+  font-size: 24pt;
+  font-style: italic;
+  background: #4dbf6d;
+  display: block;
+  height: 5%;
+  padding-top: 10px; }
+
+#success_modal_body {
+  color: #747474;
+  display: block;
+  border-radius: 2px;
+  height: 95%;
+  padding: 30px 15px 5px 15px; }
+  #success_modal_body .text {
+    margin-bottom: 20px; }
+  #success_modal_body .title {
+    color: #555555;
+    font-size: 18pt;
+    font-weight: bold;
+    margin-bottom: 8px; }
+  #success_modal_body .pure-button {
+    border-radius: 2px;
+    width: 125px; }
+
+#whisper {
+  -webkit-transition: opacity 3s, -webkit-filter 1.4s ease-out;
+  -moz-transition: opacity 3s, -webkit-filter 1.4s ease-out;
+  transition: opacity 3s, -webkit-filter 1.4s ease-out; }
+  #whisper input {
+    border: none;
+    color: #353535;
+    font-style: italic;
+    width: 400px; }
+    #whisper input:focus {
+      outline: none; }
+  #whisper select {
+    border: none; }
+    #whisper select:focus {
+      outline: none; }
+  #whisper::-webkit-input-placeholder {
+    font-style: italic;
+    color: #222222;
+    opacity: 0.6; }
+  #whisper:-moz-placeholder {
+    font-style: italic;
+    color: #222222;
+    opacity: 0.6; }
+  #whisper::-moz-placeholder {
+    font-style: italic;
+    color: #222222;
+    opacity: 0.6; }
+  #whisper:-ms-input-placeholder {
+    font-style: italic;
+    color: #222222;
+    opacity: 0.6; }
+
+.whisper_header {
+  font-weight: bold;
+  font-size: 32px;
+  margin-bottom: 10px; }

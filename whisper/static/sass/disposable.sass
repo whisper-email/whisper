@@ -1,0 +1,104 @@
+@import base
+@import layout
+@import shared
+
+body
+  &.auth_page
+    background: #6088D7
+
+    -webkit-transition: background 0.2s ease
+    -moz-transition: background 0.2s ease
+    transition: background 0.2s ease
+    
+    &.failure
+      background: #d76060
+
+    &.success_
+      background: #31BF57
+      border: none
+
+#auth_container
+  height: 200px
+  width: 500px
+  
+  .divider
+    display: inline-block
+
+    color: #fff
+    font-size: 32pt
+    font-weight: 500
+    text-align: center
+
+    margin-right: 5px
+
+    width: 30px
+
+  form
+    display: block
+
+    margin-left: auto
+    margin-right: auto
+
+    width: 185px
+
+  input
+    border: none
+
+    color: #353535
+    font-size: 24pt
+
+    border-radius: 3px
+
+    padding: 0 10px 0 10px
+    width: 75px
+
+    &:focus
+      outline: none
+
+#faq
+  margin-top: 300px
+
+#success_icon
+  background: url('/static/img/check.png')
+  background-size: cover
+  display: none
+
+  margin: 0 auto 0 auto
+
+  height: 50px
+  width: 50px
+
+  -webkit-transition: height 1.0s ease
+  -moz-transition: height 1.0s ease
+  transition: height 1.0s ease
+
+#text_logo
+  color: #fff
+  font-family: sans-serif
+  font-size: 48pt
+  font-style: italic
+  font-weight: bold
+  text-align: center
+
+.disposed_header
+  color: #222
+  font-size: 36pt
+  text-align: center
+
+  position: relative
+  top: 125px
+
+.faq_header
+  font-weight: 24pt
+
+.faq_content
+  h3
+    font-size: 18pt
+    font-weight: 600
+    font-style: italic
+
+    margin-left: 15px
+  p
+    font-size: 16pt
+    
+    margin-left: 30px

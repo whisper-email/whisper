@@ -1,109 +1,119 @@
-from bottle import route, run, post, request, template, install, static_file
+from bottle import Bottle, TEMPLATE_PATH, static_file, request, template, run
 from bottle_sqlite import SQLitePlugin
 
-import requests
-import sqlite3
-import utils
+from whisper import _database
+from whisper import _utils
+from whisper import _init
+
 import json
 
-install(SQLitePlugin(dbfile="db/whisper.db"))
+# Extend the bottle class to initialize the DB and config
+class WhisperApp(Bottle):
 
-def _db_init():
-  db = sqlite3.connect("db/whisper.db")
-  c = db.cursor()
+  def __init__(self, catchall=True, autojson=True):
+    self.app_config = _init.init_config() # Necessary due to naming conflicts in the Bottle class
+    self.database = _database
+    self.utils = _utils
 
-  c.execute("CREATE TABLE IF NOT EXISTS messages("
-    "id PRIMARY KEY," 
-    "sender TEXT,"
-    "content TEXT)"
-  )
+    _init.init_db()
+    super().__init__()
 
-  db.commit()
-  db.close()
+app = WhisperApp()
+app.install(SQLitePlugin(dbfile="whisper/db/whisper.db"))
+TEMPLATE_PATH.insert(0, 'whisper/views')
 
-@route('/', template="index")
+# Todo: add cookies.
+@app.route('/', template="index")
 def index():
   return dict()
 
-def create_disposable(sender, content, db):
-  unique_id = utils.gen_id()
-  c = db.cursor()
-  c.execute("INSERT INTO messages "
-    "VALUES (?, ?, ?)",
-    (unique_id, sender, content))
+# Todo: Allow the original sender to view and optionally destroy message using cookies.
+@app.route('/disposable/<message_id>')
+@app.route('/disposable/<message_id>/<auth>')
+def view_whisper(message_id, db, auth=None):
+  message = app.database.get_disposable(message_id, db)
 
-  db.commit()
-
-  return unique_id
-
-@route('/disposable/<message_id>')
-def disposable(message_id, db):
-  c = db.cursor()
-  c.execute("SELECT sender, content FROM messages WHERE id=?", (message_id,))
-
-  result = c.fetchone()
-  if result is None:
+  if message is None:
     return template("disposable_expired")
+
+  sender, content, password = message
+
+  if password:
+    if auth is not None and auth == password:
+      return template("disposable", sender=sender, content=content, password=auth)  
+
+    return template("disposable_auth", sender=sender, message_id=message_id)
   
-  sender, content = result
+  return template("disposable", sender=sender, content=content, password=auth)
 
-  c.execute("DELETE FROM messages where id=?", (message_id,))
-  db.commit()
+@app.post('/disposable/verify')
+def verify_whisper(db):
+  query = request.forms.get('password')
+  message_id = request.forms.get('message_id')
 
-  return template("disposable", sender=sender, content=content)
+  message = app.database.get_disposable(message_id, db)
 
+  if message is None:
+    return json.JSONEncoder().encode({
+      "success": "false"
+    })
 
-  return dict(sender=sender, content=content)
+  sender, content, password = message
+  
+  result = "true" if password == query else "false"
 
-@post('/send')
-def send_email(db):
+  return json.JSONEncoder().encode({
+    "success": result,
+    "result": password,
+    "sent": query
+  })
+
+@app.post('/send')
+def send_whisper(db):
   address = request.forms.get('address')
   sender = request.forms.get('sender')
   content = request.forms.get('content')
   paranoia = request.forms.get('paranoia')
+  password = request.forms.get('password')
+  number = request.forms.get('number')
 
-  if int(paranoia) == 2:
-    try:
-      message_id = create_disposable(sender, content, db)
-      
-      #url = "http://whisper.email/disposable/%s" % message_id
-      url = "http://%s/disposable/%s" % (config.get("domain"), message_id)
-      content = "Someone has sent you a whisper anonymously.<br />The contents of this message will be destroyed upon viewing: <a href=\"%s\">%s</a>" % (url, url)
+  try:
+    password = password or app.utils.gen_password()
+    message_id = app.database.create_disposable(sender, content, password, db)    
+    url = "http://%s/disposable/%s" % (app.app_config.get("domain"), message_id)
 
-    except Exception as e:
-      return json.JSONEncoder().encode({
-        "success": "false",
-        "response": str(e)
-      })
+    # Paranoia == Disposable Message
+    if int(paranoia) == 2:
+      content = ("Someone has sent you a whisper anonymously. "
+      "<br />The contents of this message will be destroyed upon viewing: <a href=\"%s\">%s</a>" % (url, url))
 
-  api = "https://api.mailgun.net/v2/%s/messages" % config.get("domain")
-  auth = ("api", config.get("api_key"))
-  
-  data = { 
-    "from": "Whisper <whisper@%s>" % config.get("domain"),
-    "to": "<%s>" % address,
-    "subject": "Whisper from %s, anonymously." % sender,
-    "html": content
-  }
+    # Paranoia == Two factor authentication over SMS
+    elif int(paranoia) == 3:
+      number, country = app.utils.format_number(number=number)
 
-  response = requests.post(url=api, auth=auth, data=data)
-  json_data = json.loads(response.text)
+      sms_content = ("Someone has sent you a Whisper. "
+      "Use this code along with the URL sent to your email address to read your whisper:%%0a %s" % (password))
+      app.utils.send_sms(number=number, country=country, message=sms_content)
 
-  if json_data['message'] == "Queued. Thank you.":
-    return json.JSONEncoder().encode({
-      "success": "true"
-    })
+      content = ("Someone has sent you a password protected whisper anonymously. "
+      "To open this message, use the confirmation code sent over SMS to %s."
+      "<br />The contents of this message will be destroyed upon viewing: <a href=\"%s\">%s</a>" % (number, url, url))
 
-  else:
+    # Paranoia == Two factor authentication via password protection
+    elif int(paranoia) == 4:
+      pass
+
+    return app.utils.send_email(address=address, sender=sender, content=content, config=app.app_config)
+
+  except Exception as e:
     return json.JSONEncoder().encode({
       "success": "false",
-      "response": r['message']
+      "response": str(e)
     })
 
-@route('/static/<filename:path>')
+@app.route('/static/<filename:path>')
 def serve_static(filename):
-    return static_file(filename, root='./static/')
+    return static_file(filename, root='./whisper/static/')
 
-_db_init()
-config = utils.config()
-run(host='0.0.0.0', port=8080, debug=True, reloader=True)
+
+app.run(host="localhost", port=8080, debug=True, reloader=True)
