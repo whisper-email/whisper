@@ -40,11 +40,13 @@ def view_whisper(message_id, db, auth=None):
 
   if password:
     if auth is not None and auth == password:
-      return template("disposable", sender=sender, content=content, password=auth)  
+      app.database.delete_disposable(message_id, db)
+      return template("disposable", sender=sender, content=content)  
 
     return template("disposable_auth", sender=sender, message_id=message_id)
   
-  return template("disposable", sender=sender, content=content, password=auth)
+  app.database.delete_disposable(message_id, db)
+  return template("disposable", sender=sender, content=content)
 
 @app.post('/disposable/verify')
 def verify_whisper(db):
@@ -63,9 +65,7 @@ def verify_whisper(db):
   result = "true" if password == query else "false"
 
   return json.JSONEncoder().encode({
-    "success": result,
-    "result": password,
-    "sent": query
+    "success": result
   })
 
 @app.post('/send')
@@ -116,4 +116,4 @@ def serve_static(filename):
     return static_file(filename, root='./whisper/static/')
 
 
-app.run(host="localhost", port=8080, debug=True, reloader=True)
+app.run(port=8080, workers=4, server='gunicorn')
