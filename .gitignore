@@ -1,5 +1,5 @@
 __pycache__
-*.pyc
 .sass-cache
-db/*
+*.pyc
+*.db
 config

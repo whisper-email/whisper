@@ -41,7 +41,7 @@ def init_config():
         "api_key": "",
         "domain": "yourdomain.com",
         "salt": "%s"
-      }''' % gen_id(10)) + '\n')
+      }''' % _utils.gen_id(10)) + '\n')
 
   try:
     data = json.load(open("./config", "r"))
@@ -49,10 +49,16 @@ def init_config():
   except Exception as e:
     raise Exception("Failed to load config! ", e)
 
-  if data.get("api_key") is None:
+  if data.get("api_key") == "":
     raise Exception("API Key not specified in config. Sign up at http://mailgun.com")
 
   if data.get("domain") == "yourdomain.com":
     raise Exception("Domain not specified in config.")
 
+  if data.get("salt") == "":
+    data['salt'] = _utils.gen_id(10)
+
+    with open("./config", "w") as f:
+      json.dump(data, f, indent=2)
+  
   return data

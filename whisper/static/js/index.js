@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  _done = "webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend";
+  var _done = "webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend";
 
   function generate_alert(alert, type) {
     type = type || "alert";
@@ -34,11 +34,18 @@ $(document).ready(function() {
     var matrix = {
       "address": "Email address",
       "content": "Whisper content",
-      "paranoia": "Paranoia level"
+      "paranoia": "Paranoia level",
+      "number": "SMS Number"
     };
     var fail = false;
 
     $.each(values, function(i, field) {
+      if(field.name == "number") {
+        if($("#paranoia").val() != "3") {
+          return;
+        }
+      }
+
       if(field.value == "") {
         $("#whisper").addClass('animated flash');
     

@@ -57,7 +57,7 @@
                 
                 <div class="whisper_header">
                   <span>Send a whisper to </span>
-                  <input name="address" placeholder="email@testnet.net">
+                  <input name="address" placeholder="e.snowden@gmail.com">
                   <span> from </span>
                   <select name="sender">
                     <option value="Someone">Someone</option>

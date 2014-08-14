@@ -115,5 +115,5 @@ def send_whisper(db):
 def serve_static(filename):
     return static_file(filename, root='./whisper/static/')
 
-
-app.run(port=8080, workers=4, server='gunicorn')
+app.run(host="localhost", port=8080, workers=4, debug=True, reloader=True)
+#app.run(port=8080, workers=4, server='gunicorn')
