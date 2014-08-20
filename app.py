@@ -24,8 +24,9 @@ TEMPLATE_PATH.insert(0, 'whisper/views')
 
 # Todo: add cookies.
 @app.route('/', template="index")
-def index():
-  return dict()
+def index(db):
+  sent, opened = app.database.get_stats(db)
+  return dict(sent=sent)
 
 # Todo: Allow the original sender to view and optionally destroy message using cookies.
 @app.route('/disposable/<message_id>')
@@ -41,11 +42,13 @@ def view_whisper(message_id, db, auth=None):
   if password:
     if auth is not None and auth == password:
       app.database.delete_disposable(message_id, db)
+      app.database.update_stats("opened", db)
       return template("disposable", sender=sender, content=content)  
 
     return template("disposable_auth", sender=sender, message_id=message_id)
   
   app.database.delete_disposable(message_id, db)
+  app.database.update_stats("opened", db)
   return template("disposable", sender=sender, content=content)
 
 @app.post('/disposable/verify')
@@ -78,32 +81,48 @@ def send_whisper(db):
   number = request.forms.get('number')
 
   try:
-    password = password or app.utils.gen_password()
-    message_id = app.database.create_disposable(sender, content, password, db)    
+    message_id = app.utils.gen_id()
+    formatted_content = content
+    
     url = "http://%s/disposable/%s" % (app.app_config.get("domain"), message_id)
 
+    if int(paranoia) is 1:
+      password = None
+      app.database.update_stats("opened", db)
+      formatted_content = ("%s<br /> -- Whisper received from %s at http://%s." 
+        % (content, sender, app.config.get("domain")))
+
     # Paranoia == Disposable Message
-    if int(paranoia) == 2:
-      content = ("Someone has sent you a whisper anonymously. "
+    if int(paranoia) is 2:
+      password = None
+      formatted_content = ("Someone has sent you a whisper anonymously. "
       "<br />The contents of this message will be destroyed upon viewing: <a href=\"%s\">%s</a>" % (url, url))
 
     # Paranoia == Two factor authentication over SMS
-    elif int(paranoia) == 3:
+    elif int(paranoia) is 3:
+      password = password or app.utils.gen_password()
+
       number, country = app.utils.format_number(number=number)
 
       sms_content = ("Someone has sent you a Whisper. "
-      "Use this code along with the URL sent to your email address to read your whisper:%%0a %s" % (password))
+      "Use this code along with the URL sent to your email address to read your whisper: %s" % (password))
       app.utils.send_sms(number=number, country=country, message=sms_content)
 
-      content = ("Someone has sent you a password protected whisper anonymously. "
+      formatted_content = ("Someone has sent you a password protected whisper anonymously. "
       "To open this message, use the confirmation code sent over SMS to %s."
       "<br />The contents of this message will be destroyed upon viewing: <a href=\"%s\">%s</a>" % (number, url, url))
 
     # Paranoia == Two factor authentication via password protection
-    elif int(paranoia) == 4:
+    elif int(paranoia) is 4:
       pass
 
-    return app.utils.send_email(address=address, sender=sender, content=content, config=app.app_config)
+    if int(paranoia) > 1:
+      app.database.create_disposable(unique_id=message_id, sender=sender, content=content, password=password, db=db)
+    
+    response = app.utils.send_email(address=address, sender=sender, content=formatted_content, config=app.app_config)
+    app.database.update_stats("sent", paranoia, db)
+
+    return response
 
   except Exception as e:
     return json.JSONEncoder().encode({
@@ -115,5 +134,14 @@ def send_whisper(db):
 def serve_static(filename):
     return static_file(filename, root='./whisper/static/')
 
-app.run(host="localhost", port=8080, workers=4, debug=True, reloader=True)
-#app.run(port=8080, workers=4, server='gunicorn')
+@app.route('/test')
+def test():
+  sender = "Test"
+  message_id = "test"
+  return template("disposable_auth", sender=sender, message_id=message_id)
+
+# Run app locally for testing
+#app.run(host="localhost", port=8080, debug=True, reloader=True)
+
+# Run app in production
+app.run(port=8080, workers=4, server='gunicorn')

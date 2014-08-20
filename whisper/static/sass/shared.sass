@@ -1,8 +1,31 @@
 /* ------------------------------------
   Table of Contents
   -------------------------------------
-    :: 1.a Alerts 
-    :: 1.b Utility Classes */
+    :: 1.a General
+    :: 1.b Alerts 
+    :: 1.c Utility Classes */
+
+/*///////////////////////////////////
+  :: General
+/////////////////////////////////*/
+
+#text_logo
+  color: #fff
+  font-family: "Arial", sans-serif
+  font-size: 48pt
+  font-style: italic
+  font-weight: bold
+  text-align: center
+  letter-spacing: -5px
+
+  a
+    color: #fff
+
+    transition: opacity 0.2s
+
+    &:hover
+      opacity: 0.8
+      text-decoration: none
 
 /*///////////////////////////////////
   :: Alerts
@@ -25,7 +48,7 @@
   color: #FFF4F2
   font-variant: small-caps
   background: #F24927
-  border: 2px solid #E8330C
+  border: 1px solid #E8330C
 
 .success
   @extend .alert
@@ -46,3 +69,10 @@
   left: 0
   bottom: 0
   right: 0
+
+.blurred
+  -webkit-filter: blur(1px)
+  -moz-filter: blur(1px)
+  -o-filter: blur(1px)
+  -ms-filter: blur(1px)
+  filter: blur(1px)

@@ -1,8 +1,26 @@
 /* ------------------------------------
  * Table of Contents
  * -------------------------------------
- *   :: 1.a Alerts 
- *   :: 1.b Utility Classes */
+ *   :: 1.a General
+ *   :: 1.b Alerts 
+ *   :: 1.c Utility Classes */
+/*///////////////////////////////////
+ * :: General */
+#text_logo {
+  color: white;
+  font-family: "Arial", sans-serif;
+  font-size: 48pt;
+  font-style: italic;
+  font-weight: bold;
+  text-align: center;
+  letter-spacing: -5px; }
+  #text_logo a {
+    color: white;
+    transition: opacity 0.2s; }
+    #text_logo a:hover {
+      opacity: 0.8;
+      text-decoration: none; }
+
 /*///////////////////////////////////
  * :: Alerts */
 .alert, .error, .success {
@@ -20,7 +38,7 @@
   color: #fff4f2;
   font-variant: small-caps;
   background: #f24927;
-  border: 2px solid #e8330c; }
+  border: 1px solid #e8330c; }
 
 .success {
   color: #e4ffeb;
@@ -37,3 +55,10 @@
   left: 0;
   bottom: 0;
   right: 0; }
+
+.blurred {
+  -webkit-filter: blur(1px);
+  -moz-filter: blur(1px);
+  -o-filter: blur(1px);
+  -ms-filter: blur(1px);
+  filter: blur(1px); }

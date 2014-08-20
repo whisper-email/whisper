@@ -67,7 +67,7 @@ $(document).ready(function() {
 
           $("#background_cover").show();
           $("#success_modal").show().addClass("animated flipInX");
-          $("#whisper").addClass('blurred transparent');
+          $("#whisper").addClass('blurred');
         }
 
         else {

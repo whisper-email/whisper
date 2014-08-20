@@ -17,21 +17,12 @@ body
       background: #31BF57
       border: none
 
+h1
+  color: #3F2B00
+
 #auth_container
   height: 200px
   width: 500px
-  
-  .divider
-    display: inline-block
-
-    color: #fff
-    font-size: 32pt
-    font-weight: 500
-    text-align: center
-
-    margin-right: 5px
-
-    width: 30px
 
   form
     display: block
@@ -55,8 +46,23 @@ body
     &:focus
       outline: none
 
+  #text_logo
+    margin-top: 0
+
+  .divider
+    display: inline-block
+
+    color: #fff
+    font-size: 32pt
+    font-weight: 500
+    text-align: center
+
+    margin-right: 5px
+
+    width: 30px
+
 #faq
-  margin-top: 300px
+  margin-top: 100px
 
 #success_icon
   background: url('/static/img/check.png')
@@ -73,20 +79,18 @@ body
   transition: height 1.0s ease
 
 #text_logo
-  color: #fff
-  font-family: sans-serif
-  font-size: 48pt
-  font-style: italic
-  font-weight: bold
-  text-align: center
+  margin-top: 100px
 
-.disposed_header
-  color: #222
-  font-size: 36pt
-  text-align: center
+.disposable_container.unread
+  margin-top: 100px
 
-  position: relative
-  top: 125px
+.disposable_content.unread
+  margin-top: 25px
+  margin-bottom: 20px
+
+.expired
+  h1
+    text-align: center
 
 .faq_header
   font-weight: 24pt
