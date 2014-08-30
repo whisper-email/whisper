@@ -20,7 +20,7 @@ def format_number(number):
   stripped = string.punctuation + " "
   number.translate(number.maketrans(dict(zip(stripped, ["" for x in stripped]))))
 
-  # Check if the number contains a country code, else assume US or fail if less than 9 digits.
+  # Check if the number contains a country code, else assume US or fail if less than 10 digits.
   if number.isdigit():
 
     if len(number) == 11:

@@ -5,23 +5,28 @@
 /* ------------------------------------
   Table of Contents
   -------------------------------------
-    :: 1.a Whisper Form 
-    :: 1.b Responsive Queries */
+    :: 1.a General 
+    :: 1.b Whisper Form 
+    :: 1.c Responsive Queries */
 
 /*//////////////////////////////////
-  :: 1.a Whisper Form
+  :: 1.a General
 /////////////////////////////////*/
+body, html
+  color: #3F2B00
+  overflow-x: hidden
+
+  p
+    color: #DBD7D0
 
 body
-  color: #3F2B00
-  overflow: hidden
+  padding-bottom: 100px
 
 input
   background: none
   border: none
   color: #fff
   font-style: italic
-  width: 100%
 
   &:focus
     outline: none
@@ -46,6 +51,10 @@ input
     color: #333
     opacity: .6
 
+label
+  position: relative
+  top: -4px
+
 select
   border: none
 
@@ -69,16 +78,22 @@ select
 #content
   margin-top: 75px
 
+  overflow: hidden
+
+/*//////////////////////////////////
+  :: 1.b Whisper Form
+/////////////////////////////////*/
+
 #email_content
   background: rgba(255, 255, 255, .1)
   border: none
   border-bottom: 1px solid rgba(200, 200, 200, .3)
 
   line-height: 1.5em
-  font-size: 30pt
+  font-size: 2em
   
   margin-bottom: 25px
-  padding: 15px
+  padding: 25px
   
   width: 100%
   
@@ -107,40 +122,130 @@ select
     opacity: .6
 
   &:focus
-    background: #fafafa
-    border-bottom: 1px solid #ddd
+    background: rgba(255, 255, 255, .3)
+    border-bottom: 1px solid rgba(200, 200, 200, .1)
     outline: none
 
     &::-webkit-input-placeholder
       font-style: italic
       color: #fafafa
-      opacity: .6
+      opacity: 0
 
     &:-moz-placeholder
       font-style: italic
       color: #fafafa
-      opacity: .6
+      opacity: 0
 
     &::-moz-placeholder
       font-style: italic
       color: #fafafa
-      opacity: .6
+      opacity: 0
 
     &:-ms-input-placeholder
       font-style: italic
       color: #fafafa
-      opacity: .6
+      opacity: 0
 
 #paranoia
-  font-size: 20pt
+  display: none
+  font-size: 1.625em
 
   position: relative
   top: 4px
 
+#security 
+  display: inline
+
+  li
+    color: #fff
+
+    background: #ccc
+    box-shadow: 1px 0px 2px rgba(0, 0, 0, 0.2)
+    
+    display: inline-block
+    list-style-type: none
+
+    text-align: center
+
+    padding: 9px 10px 0px 10px
+
+    height: 35px
+
+    &:hover, &.active
+      cursor: pointer
+
+      -webkit-box-shadow: inset 0px 1px 2px 0px rgba(50, 50, 50, 0.5)
+      -moz-box-shadow:    inset 0px 1px 2px 0px rgba(50, 50, 50, 0.5)
+      box-shadow:         inset 0px 1px 2px 0px rgba(50, 50, 50, 0.5)
+
+    &.low_security
+      color: #8A0B00
+      @include background-gradient(#ff6f4b, #dd3f2a)
+
+      &:hover, &.active
+        color: #000
+        background: #dd3f2a
+      
+    &.medium_security
+      color: #5F3F0E
+      @include background-gradient(#ffaf4b, #ff890a)
+
+      &:hover, &.active
+        color: #000
+        background: #ff890a
+
+    &.high_security
+      color: #25550B
+      @include background-gradient(#54ce3d, #2e9c1a)
+
+      &:hover, &.active
+        color: #000
+        background: #2e9c1a
+
+    &:not(:first-of-type)
+      margin-left: -4px
+
+    &:not(:last-of-type)
+      border-right: 1px solid rgba(70, 70, 70, 0.2)
+
+
+    &:first-of-type
+      -webkit-border-top-left-radius: 3px
+      -webkit-border-bottom-left-radius: 3px
+      -moz-border-radius-topleft: 3px
+      -moz-border-radius-bottomleft: 3px
+      border-top-left-radius: 3px
+      border-bottom-left-radius: 3px
+
+    &:last-of-type
+      -webkit-border-top-right-radius: 3px
+      -webkit-border-bottom-right-radius: 3px
+      -moz-border-radius-topright: 3px
+      -moz-border-radius-bottomright: 3px
+      border-top-right-radius: 3px
+      border-bottom-right-radius: 3px
+
+#security_description
+  color: #DBD7D0
+
+  float: right
+  margin-bottom: 20px
+
+#security_name
+  font-size: 1.2em
+  font-weight: bold
+
+  margin-bottom: 20px
+
 #sms_container
+  font-weight: bold
+
   display: none
   
   margin-top: 25px
+
+#sms_number
+  display: inline
 
 #success_modal
   background: #fafafa
@@ -158,7 +263,7 @@ select
 
 #success_modal_head
   color: #fff
-  font-size: 24pt
+  font-size: 2em
   font-style: italic
   background: #4DBF6D
   display: block
@@ -175,7 +280,7 @@ select
     margin-bottom: 20px
   .title
     color: #555
-    font-size: 18pt
+    font-size: 1.5em
     font-weight: bold
     margin-bottom: 8px
   .pure-button
@@ -193,13 +298,25 @@ select
   button.pure-button
     background: rgba(0, 120, 231, 0.7)
 
-.whisper_header
+  button[type=submit]
+    float: right
+
+  input[name=sender]
+    display: inline-block
+    float: right
+
+  input[name=sms_number]
+
+  input
+    width: 100%
+
+#whisper_header
+  font-size: 1.5em
   font-weight: bold
-  font-size: 18px
   margin-bottom: 10px
 
 /*//////////////////////////////////
-  :: 1.b Responsive Queries
+  :: 1.c Responsive Queries
 /////////////////////////////////*/
 
 @media screen and (min-width: 35.5em)
@@ -213,6 +330,6 @@ select
 
 @media screen and (min-width: 80em)
   // X-Large
-  
-  .whisper_header
-    font-size: 32px
+
+  #whisper_header
+    font-size: 2em

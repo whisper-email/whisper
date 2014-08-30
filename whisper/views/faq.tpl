@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Whisper is an anonymous, encrypted one time email service.">
-    <title>Your whisper has been destroyed.</title>
+    <title>Whisper - FAQ</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
     
     <!--[if lte IE 8]>
@@ -25,9 +25,6 @@
         <div id="text_logo"><a href="/">Whisper</a></div>
       </div>
       <div id="content" class="disposable_container pure-u-1">
-        <div class="disposable_title expired">
-          <h1>This message no longer exists.</h1>
-        </div>
         <div id="faq">
           <h2 class="faq_header">Frequently Asked Questions</h2>
           <div class="faq_content">

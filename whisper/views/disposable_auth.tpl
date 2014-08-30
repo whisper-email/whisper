@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Whisper is an anonymous, encrypted one time email service.">
-    <title>Whisper from {{sender}}, anonymously</title>
+    <title>Whisper from {{sender}}, anonymously.</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
     
     <!--[if lte IE 8]>

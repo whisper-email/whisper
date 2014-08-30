@@ -9,18 +9,38 @@ a {
   a:hover, a:focus {
     text-decoration: underline; }
 
-h3 {
-  font-weight: 100; }
-
-html, body {
-  overflow-x: hidden; }
-
 body {
-  background: #bc8b52 url("..//img/background.jpg") no-repeat center center fixed;
+  background: #bc8b52 url("../img/background.jpg") no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-  background-size: cover; }
+  background-size: cover;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: "";
+  content: none; }
+
+input {
+  margin: none;
+  padding: none; }
+
+ol, ul {
+  margin: 0;
+  padding: 0;
+  border: 0; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+h3 {
+  font-weight: 100; }
 
 #layout {
   margin: 0 auto; }
@@ -50,18 +70,36 @@ body {
 
 @media screen and (min-width: 80em) {
   #layout {
-    max-width: 1140px; }
+    max-width: 1140px; } }
+/* Turn on custom 8px wide scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  /* 1px wider than Lion. */
+  /* This is more usable for users trying to click it. */
+  background-color: transparent;
+  -webkit-border-radius: 100px; }
+  ::-webkit-scrollbar:hover {
+    background-color: rgba(0, 0, 0, 0.09); }
 
-  .whisper_header {
-    font-size: 32px; } }
+/* hover effect for both scrollbar area, and scrollbar 'thumb' */
+/* The scrollbar 'thumb' ...that marque oval shape in a scrollbar */
+::-webkit-scrollbar-thumb:vertical {
+  /* This is the EXACT color of Mac OS scrollbars. */
+  background: rgba(0, 0, 0, 0.5);
+  -webkit-border-radius: 100px; }
+  ::-webkit-scrollbar-thumb:vertical:active {
+    background: rgba(0, 0, 0, 0.61);
+    -webkit-border-radius: 100px; }
+
 /* ------------------------------------
  * Table of Contents
  * -------------------------------------
  *   :: 1.a General
  *   :: 1.b Alerts 
- *   :: 1.c Utility Classes */
+ *   :: 1.c Utility Classes 
+ *   :: 1.d Utility Functions */
 /*///////////////////////////////////
- * :: General */
+ * :: 1.a General */
 #text_logo {
   color: white;
   font-family: "Arial", sans-serif;
@@ -77,8 +115,16 @@ body {
       opacity: 0.8;
       text-decoration: none; }
 
+::-moz-selection {
+  color: #fafafa;
+  background: #ba8f57; }
+
+::selection {
+  color: #fafafa;
+  background: #ba8f57; }
+
 /*///////////////////////////////////
- * :: Alerts */
+ * :: 1.b Alerts */
 .alert, .error, .success {
   color: #222222;
   font-size: 12pt;
@@ -103,7 +149,7 @@ body {
   /*#217F3A */ }
 
 /*///////////////////////////////////
- * :: Utility Classes */
+ * :: 1.c Utility Classes */
 .absolute_center {
   margin: auto;
   position: absolute;
@@ -119,6 +165,8 @@ body {
   -ms-filter: blur(1px);
   filter: blur(1px); }
 
+/*///////////////////////////////////
+ * :: 1.4 Utility Functions */
 body.auth_page {
   background: #6088d7;
   -webkit-transition: background 0.2s ease;
@@ -183,7 +231,8 @@ h1 {
 
 .disposable_content.unread {
   margin-top: 25px;
-  margin-bottom: 20px; }
+  margin-bottom: 20px;
+  white-space: pre-wrap; }
 
 .expired h1 {
   text-align: center; }

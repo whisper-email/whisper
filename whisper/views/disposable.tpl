@@ -28,9 +28,7 @@
         <div class="disposable_title">
           <h1>A whisper from {{sender}}</h1>
         </div>
-        <div class="disposable_content unread">
-          <pre>{{content}}</pre>
-        </div>
+        <div class="disposable_content unread">{{content}}</div>
         <div class='alert error'>This message has been deleted. Once you close this window this whisper will be lost forever.</div>
       </div>
     </div>

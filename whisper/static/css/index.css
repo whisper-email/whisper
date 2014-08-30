@@ -9,18 +9,38 @@ a {
   a:hover, a:focus {
     text-decoration: underline; }
 
-h3 {
-  font-weight: 100; }
-
-html, body {
-  overflow-x: hidden; }
-
 body {
-  background: #bc8b52 url("..//img/background.jpg") no-repeat center center fixed;
+  background: #bc8b52 url("../img/background.jpg") no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-  background-size: cover; }
+  background-size: cover;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: "";
+  content: none; }
+
+input {
+  margin: none;
+  padding: none; }
+
+ol, ul {
+  margin: 0;
+  padding: 0;
+  border: 0; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+h3 {
+  font-weight: 100; }
 
 #layout {
   margin: 0 auto; }
@@ -50,18 +70,36 @@ body {
 
 @media screen and (min-width: 80em) {
   #layout {
-    max-width: 1140px; }
+    max-width: 1140px; } }
+/* Turn on custom 8px wide scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  /* 1px wider than Lion. */
+  /* This is more usable for users trying to click it. */
+  background-color: transparent;
+  -webkit-border-radius: 100px; }
+  ::-webkit-scrollbar:hover {
+    background-color: rgba(0, 0, 0, 0.09); }
 
-  .whisper_header {
-    font-size: 32px; } }
+/* hover effect for both scrollbar area, and scrollbar 'thumb' */
+/* The scrollbar 'thumb' ...that marque oval shape in a scrollbar */
+::-webkit-scrollbar-thumb:vertical {
+  /* This is the EXACT color of Mac OS scrollbars. */
+  background: rgba(0, 0, 0, 0.5);
+  -webkit-border-radius: 100px; }
+  ::-webkit-scrollbar-thumb:vertical:active {
+    background: rgba(0, 0, 0, 0.61);
+    -webkit-border-radius: 100px; }
+
 /* ------------------------------------
  * Table of Contents
  * -------------------------------------
  *   :: 1.a General
  *   :: 1.b Alerts 
- *   :: 1.c Utility Classes */
+ *   :: 1.c Utility Classes 
+ *   :: 1.d Utility Functions */
 /*///////////////////////////////////
- * :: General */
+ * :: 1.a General */
 #text_logo {
   color: white;
   font-family: "Arial", sans-serif;
@@ -77,8 +115,16 @@ body {
       opacity: 0.8;
       text-decoration: none; }
 
+::-moz-selection {
+  color: #fafafa;
+  background: #ba8f57; }
+
+::selection {
+  color: #fafafa;
+  background: #ba8f57; }
+
 /*///////////////////////////////////
- * :: Alerts */
+ * :: 1.b Alerts */
 .alert, .error, .success {
   color: #222222;
   font-size: 12pt;
@@ -103,7 +149,7 @@ body {
   /*#217F3A */ }
 
 /*///////////////////////////////////
- * :: Utility Classes */
+ * :: 1.c Utility Classes */
 .absolute_center {
   margin: auto;
   position: absolute;
@@ -119,23 +165,30 @@ body {
   -ms-filter: blur(1px);
   filter: blur(1px); }
 
+/*///////////////////////////////////
+ * :: 1.4 Utility Functions */
 /* ------------------------------------
  * Table of Contents
  * -------------------------------------
- *   :: 1.a Whisper Form 
- *   :: 1.b Responsive Queries */
+ *   :: 1.a General 
+ *   :: 1.b Whisper Form 
+ *   :: 1.c Responsive Queries */
 /*//////////////////////////////////
- * :: 1.a Whisper Form */
-body {
+ * :: 1.a General */
+body, html {
   color: #3f2b00;
-  overflow: hidden; }
+  overflow-x: hidden; }
+  body p, html p {
+    color: #dbd7d0; }
+
+body {
+  padding-bottom: 100px; }
 
 input {
   background: none;
   border: none;
   color: white;
-  font-style: italic;
-  width: 100%; }
+  font-style: italic; }
   input:focus {
     outline: none; }
   input::-webkit-input-placeholder {
@@ -155,6 +208,10 @@ input {
     color: #333333;
     opacity: 0.6; }
 
+label {
+  position: relative;
+  top: -4px; }
+
 select {
   border: none; }
   select:focus {
@@ -171,16 +228,19 @@ select {
   z-index: 1; }
 
 #content {
-  margin-top: 75px; }
+  margin-top: 75px;
+  overflow: hidden; }
 
+/*//////////////////////////////////
+ * :: 1.b Whisper Form */
 #email_content {
   background: rgba(255, 255, 255, 0.1);
   border: none;
   border-bottom: 1px solid rgba(200, 200, 200, 0.3);
   line-height: 1.5em;
-  font-size: 30pt;
+  font-size: 2em;
   margin-bottom: 25px;
-  padding: 15px;
+  padding: 25px;
   width: 100%;
   -webkit-transition: background 1s, border-bottom 0.4s ease-in;
   -moz-transition: background 1s, border-bottom 0.4s ease-in;
@@ -202,34 +262,123 @@ select {
     color: #fafafa;
     opacity: 0.6; }
   #email_content:focus {
-    background: #fafafa;
-    border-bottom: 1px solid #dddddd;
+    background: rgba(255, 255, 255, 0.3);
+    border-bottom: 1px solid rgba(200, 200, 200, 0.1);
     outline: none; }
     #email_content:focus::-webkit-input-placeholder {
       font-style: italic;
       color: #fafafa;
-      opacity: 0.6; }
+      opacity: 0; }
     #email_content:focus:-moz-placeholder {
       font-style: italic;
       color: #fafafa;
-      opacity: 0.6; }
+      opacity: 0; }
     #email_content:focus::-moz-placeholder {
       font-style: italic;
       color: #fafafa;
-      opacity: 0.6; }
+      opacity: 0; }
     #email_content:focus:-ms-input-placeholder {
       font-style: italic;
       color: #fafafa;
-      opacity: 0.6; }
+      opacity: 0; }
 
 #paranoia {
-  font-size: 20pt;
+  display: none;
+  font-size: 1.625em;
   position: relative;
   top: 4px; }
 
+#security {
+  display: inline; }
+  #security li {
+    color: white;
+    background: #cccccc;
+    box-shadow: 1px 0px 2px rgba(0, 0, 0, 0.2);
+    display: inline-block;
+    list-style-type: none;
+    text-align: center;
+    padding: 9px 10px 0px 10px;
+    height: 35px; }
+    #security li:hover, #security li.active {
+      cursor: pointer;
+      -webkit-box-shadow: inset 0px 1px 2px 0px rgba(50, 50, 50, 0.5);
+      -moz-box-shadow: inset 0px 1px 2px 0px rgba(50, 50, 50, 0.5);
+      box-shadow: inset 0px 1px 2px 0px rgba(50, 50, 50, 0.5); }
+    #security li.low_security {
+      color: #8a0b00;
+      background: #ff6f4b;
+      background: -moz-linear-gradient(top, #ff6f4b 0%, #dd3f2a 100%);
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ff6f4b), color-stop(100%, #dd3f2a));
+      background: -webkit-linear-gradient(top, #ff6f4b 0%, #dd3f2a 100%);
+      background: -o-linear-gradient(top, #ff6f4b 0%, #dd3f2a 100%);
+      background: -ms-linear-gradient(top, #ff6f4b 0%, #dd3f2a 100%);
+      background: linear-gradient(to bottom, #ff6f4b 0%, #dd3f2a 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$start', endColorstr='$end', GradientType=0 ); }
+      #security li.low_security:hover, #security li.low_security.active {
+        color: black;
+        background: #dd3f2a; }
+    #security li.medium_security {
+      color: #5f3f0e;
+      background: #ffaf4b;
+      background: -moz-linear-gradient(top, #ffaf4b 0%, #ff890a 100%);
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffaf4b), color-stop(100%, #ff890a));
+      background: -webkit-linear-gradient(top, #ffaf4b 0%, #ff890a 100%);
+      background: -o-linear-gradient(top, #ffaf4b 0%, #ff890a 100%);
+      background: -ms-linear-gradient(top, #ffaf4b 0%, #ff890a 100%);
+      background: linear-gradient(to bottom, #ffaf4b 0%, #ff890a 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$start', endColorstr='$end', GradientType=0 ); }
+      #security li.medium_security:hover, #security li.medium_security.active {
+        color: black;
+        background: #ff890a; }
+    #security li.high_security {
+      color: #25550b;
+      background: #54ce3d;
+      background: -moz-linear-gradient(top, #54ce3d 0%, #2e9c1a 100%);
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #54ce3d), color-stop(100%, #2e9c1a));
+      background: -webkit-linear-gradient(top, #54ce3d 0%, #2e9c1a 100%);
+      background: -o-linear-gradient(top, #54ce3d 0%, #2e9c1a 100%);
+      background: -ms-linear-gradient(top, #54ce3d 0%, #2e9c1a 100%);
+      background: linear-gradient(to bottom, #54ce3d 0%, #2e9c1a 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$start', endColorstr='$end', GradientType=0 ); }
+      #security li.high_security:hover, #security li.high_security.active {
+        color: black;
+        background: #2e9c1a; }
+    #security li:not(:first-of-type) {
+      margin-left: -4px; }
+    #security li:not(:last-of-type) {
+      border-right: 1px solid rgba(70, 70, 70, 0.2); }
+    #security li:first-of-type {
+      -webkit-border-top-left-radius: 3px;
+      -webkit-border-bottom-left-radius: 3px;
+      -moz-border-radius-topleft: 3px;
+      -moz-border-radius-bottomleft: 3px;
+      border-top-left-radius: 3px;
+      border-bottom-left-radius: 3px; }
+    #security li:last-of-type {
+      -webkit-border-top-right-radius: 3px;
+      -webkit-border-bottom-right-radius: 3px;
+      -moz-border-radius-topright: 3px;
+      -moz-border-radius-bottomright: 3px;
+      border-top-right-radius: 3px;
+      border-bottom-right-radius: 3px; }
+
+#security_description {
+  color: #dbd7d0;
+  float: right;
+  margin-bottom: 20px; }
+
+#security_name {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-bottom: 20px; }
+
 #sms_container {
+  font-weight: bold;
   display: none;
   margin-top: 25px; }
+
+#sms_number {
+  display: inline; }
 
 #success_modal {
   background: #fafafa;
@@ -243,7 +392,7 @@ select {
 
 #success_modal_head {
   color: white;
-  font-size: 24pt;
+  font-size: 2em;
   font-style: italic;
   background: #4dbf6d;
   display: block;
@@ -260,7 +409,7 @@ select {
     margin-bottom: 20px; }
   #success_modal_body .title {
     color: #555555;
-    font-size: 18pt;
+    font-size: 1.5em;
     font-weight: bold;
     margin-bottom: 8px; }
   #success_modal_body .pure-button {
@@ -276,14 +425,21 @@ select {
   transition: opacity 3s, -webkit-filter 1.4s ease-out; }
   #whisper button.pure-button {
     background: rgba(0, 120, 231, 0.7); }
+  #whisper button[type=submit] {
+    float: right; }
+  #whisper input[name=sender] {
+    display: inline-block;
+    float: right; }
+  #whisper input {
+    width: 100%; }
 
-.whisper_header {
+#whisper_header {
+  font-size: 1.5em;
   font-weight: bold;
-  font-size: 18px;
   margin-bottom: 10px; }
 
 /*//////////////////////////////////
- * :: 1.b Responsive Queries */
+ * :: 1.c Responsive Queries */
 @media screen and (min-width: 80em) {
-  .whisper_header {
-    font-size: 32px; } }
+  #whisper_header {
+    font-size: 2em; } }

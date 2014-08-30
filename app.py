@@ -25,8 +25,16 @@ TEMPLATE_PATH.insert(0, 'whisper/views')
 # Todo: add cookies.
 @app.route('/', template="index")
 def index(db):
-  sent, opened = app.database.get_stats(db)
-  return dict(sent=sent)
+  stats = app.database.get_stats(db)
+  if stats is None:
+    return dict(sent=None, opened=None)
+  else:
+    sent, opened = stats
+    return dict(sent=sent, opened=opened)
+
+@app.route('/faq', template="faq")
+def faq():
+  return dict()
 
 # Todo: Allow the original sender to view and optionally destroy message using cookies.
 @app.route('/disposable/<message_id>')
@@ -81,6 +89,7 @@ def send_whisper(db):
   number = request.forms.get('number')
 
   try:
+    sender = sender or "Anonymous"
     message_id = app.utils.gen_id()
     formatted_content = content
     
@@ -88,15 +97,14 @@ def send_whisper(db):
 
     if int(paranoia) is 1:
       password = None
+      url = None
       app.database.update_stats("opened", db)
-      formatted_content = ("%s<br /> -- Whisper received from %s at http://%s." 
-        % (content, sender, app.config.get("domain")))
 
     # Paranoia == Disposable Message
     if int(paranoia) is 2:
       password = None
-      formatted_content = ("Someone has sent you a whisper anonymously. "
-      "<br />The contents of this message will be destroyed upon viewing: <a href=\"%s\">%s</a>" % (url, url))
+      formatted_content = ("Someone has sent you a whisper anonymously.\n"
+      "The contents of this message will be destroyed upon viewing: ")
 
     # Paranoia == Two factor authentication over SMS
     elif int(paranoia) is 3:
@@ -109,8 +117,8 @@ def send_whisper(db):
       app.utils.send_sms(number=number, country=country, message=sms_content)
 
       formatted_content = ("Someone has sent you a password protected whisper anonymously. "
-      "To open this message, use the confirmation code sent over SMS to %s."
-      "<br />The contents of this message will be destroyed upon viewing: <a href=\"%s\">%s</a>" % (number, url, url))
+      "To open this message, use the confirmation code sent over SMS to (%s) *** %s.\n"
+      "The contents of this message will be destroyed upon viewing: " % (number[:3], number[6:]))
 
     # Paranoia == Two factor authentication via password protection
     elif int(paranoia) is 4:
@@ -119,7 +127,8 @@ def send_whisper(db):
     if int(paranoia) > 1:
       app.database.create_disposable(unique_id=message_id, sender=sender, content=content, password=password, db=db)
     
-    response = app.utils.send_email(address=address, sender=sender, content=formatted_content, config=app.app_config)
+    html = template("email", sender=sender, content=formatted_content, url=url, domain=app.app_config.get("domain"))
+    response = app.utils.send_email(address=address, sender=sender, content=html, config=app.app_config)
     app.database.update_stats("sent", paranoia, db)
 
     return response
@@ -133,12 +142,6 @@ def send_whisper(db):
 @app.route('/static/<filename:path>')
 def serve_static(filename):
     return static_file(filename, root='./whisper/static/')
-
-@app.route('/test')
-def test():
-  sender = "Test"
-  message_id = "test"
-  return template("disposable_auth", sender=sender, message_id=message_id)
 
 # Run app locally for testing
 #app.run(host="localhost", port=8080, debug=True, reloader=True)

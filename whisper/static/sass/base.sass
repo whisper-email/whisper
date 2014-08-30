@@ -9,18 +9,39 @@ a
   &:hover, &:focus
     text-decoration: underline
 
-h3
-  font-weight: 100
-
-html, body
-  overflow-x: hidden
-
 body
-  background: #BC8B52 url('..//img/background.jpg') no-repeat center center fixed
+  background: #BC8B52 url('../img/background.jpg') no-repeat center center fixed
   -webkit-background-size: cover
   -moz-background-size: cover
   -o-background-size: cover
   background-size: cover
+
+  text-rendering: optimizeLegibility
+  -webkit-font-smoothing: antialiased
+
+blockquote, q
+  quotes: none
+
+blockquote:before, blockquote:after,
+q:before, q:after
+  content: ''
+  content: none
+
+input
+  margin: none
+  padding: none
+
+ol, ul
+  margin: 0
+  padding: 0
+  border: 0
+
+table
+  border-collapse: collapse
+  border-spacing: 0
+
+h3
+  font-weight: 100
 
 #layout
   margin: 0 auto

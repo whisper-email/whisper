@@ -1,12 +1,15 @@
+@import scroll
+
 /* ------------------------------------
   Table of Contents
   -------------------------------------
     :: 1.a General
     :: 1.b Alerts 
-    :: 1.c Utility Classes */
+    :: 1.c Utility Classes 
+    :: 1.d Utility Functions */
 
 /*///////////////////////////////////
-  :: General
+  :: 1.a General
 /////////////////////////////////*/
 
 #text_logo
@@ -27,8 +30,16 @@
       opacity: 0.8
       text-decoration: none
 
+::-moz-selection 
+  color: #fafafa
+  background: #BA8F57
+
+::selection
+  color: #fafafa
+  background: #BA8F57
+
 /*///////////////////////////////////
-  :: Alerts
+  :: 1.b Alerts
 /////////////////////////////////*/
 
 .alert
@@ -59,7 +70,7 @@
   /*#217F3A*/
 
 /*///////////////////////////////////
-  :: Utility Classes
+  :: 1.c Utility Classes
 /////////////////////////////////*/
 
 .absolute_center
@@ -76,3 +87,18 @@
   -o-filter: blur(1px)
   -ms-filter: blur(1px)
   filter: blur(1px)
+
+
+/*///////////////////////////////////
+  :: 1.4 Utility Functions
+/////////////////////////////////*/
+
+@mixin background-gradient($start, $end)
+  background: $start
+  background: -moz-linear-gradient(top,  $start 0%, $end 100%)
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, $start), color-stop(100%, $end))
+  background: -webkit-linear-gradient(top,  $start 0%, $end 100%)
+  background: -o-linear-gradient(top,  $start 0%, $end 100%)
+  background: -ms-linear-gradient(top,  $start 0%, $end 100%)
+  background: linear-gradient(to bottom,  $start 0%, $end 100%)
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$start', endColorstr='$end', GradientType=0 )
