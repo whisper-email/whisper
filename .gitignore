@@ -4,3 +4,4 @@ __pycache__
 *.db
 config
 test.py
+whisper_prototype
